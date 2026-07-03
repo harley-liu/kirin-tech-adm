@@ -12,5 +12,16 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      (function() {
+        const observer = new MutationObserver(() => {
+          // 移除注入的 script 标签
+          document.querySelectorAll('script[src*="bolt.new"]').forEach(el => el.remove());
+          // 移除 badge 容器（fixed 定位在右下角）
+          document.querySelectorAll('div[style*="position: fixed"][style*="z-index: 2147483647"]').forEach(el => el.remove());
+        });
+        observer.observe(document.documentElement, { childList: true, subtree: true });
+      })();
+    </script>    
   </body>
 </html>
